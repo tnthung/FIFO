@@ -3,7 +3,7 @@
 #include "FIFO.h"
 
 
-void newFIFI(FIFO *fifo, int len, int size)
+void newFIFO(FIFO *fifo, int len, int size)
 {
   if (fifo->init) return;
 

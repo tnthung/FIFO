@@ -14,7 +14,7 @@ typedef struct FIFO
 } FIFO;
 
 
-void newFIFI(FIFO *fifo, int len, int size);
+void newFIFO(FIFO *fifo, int len, int size);
 void delFIFO(FIFO *fifo);
 
 int   enqFIFO(FIFO *fifo, void *src); // push element into FIFO
