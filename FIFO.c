@@ -30,10 +30,12 @@ int enqFIFO(FIFO *fifo, void *src)
   if (!fifo->init)            return -1;
   if (fifo->cnt >= fifo->len) return -1;
 
-  memcpy(&(fifo->_[fifo->ne]), src, fifo->sz);
+  memcpy(fifo->_ + fifo->ne*fifo->sz, src, fifo->sz);
 
   fifo->ne = ++(fifo->ne) % fifo->len;
   fifo->cnt++;
+
+  return 0;
 }
 
 void *deqFIFO(FIFO *fifo)
@@ -43,7 +45,7 @@ void *deqFIFO(FIFO *fifo)
   if (!fifo->init)    return -1;
   if (fifo->cnt == 0) return -1;
 
-  fifo->ne = ++(fifo->ne) % fifo->len;
+  fifo->nd = ++(fifo->nd) % fifo->len;
   fifo->cnt--;
 
   return (fifo->_ + i*fifo->sz);
