@@ -20,3 +20,6 @@ void delFIFO(FIFO *fifo);
 int   enqFIFO(FIFO *fifo, void *src); // push element into FIFO
 void *deqFIFO(FIFO *fifo);            // pop element from FIFO
 void *seeFIFO(FIFO *fifo);            // get element without removing
+
+int FIFOleft (FIFO *fifo);           // get the number of free space
+int FIFOcount(FIFO *fifo);           // get the number of elements in FIFO

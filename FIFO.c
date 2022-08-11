@@ -59,3 +59,13 @@ void *seeFIFO(FIFO *fifo)
   return (fifo->_ + fifo->nd*fifo->sz);
 }
 
+int FIFOleft(FIFO *fifo)
+{
+  int tmp = fifo->len - fifo->cnt;
+  return (tmp<0) ? 0 : tmp;
+}
+
+int FIFOcount(FIFO *fifo)
+{
+  return fifo->cnt;
+}
