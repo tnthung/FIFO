@@ -1,6 +1,13 @@
 #include <stdlib.h>
-#include <memory.h>
 #include "FIFO.h"
+
+
+void memcpy(void *dist, void *src, unsigned int len)
+{
+  int i;
+  for (i=0; i<len; i++)
+    *(char *)(dist + i) = *(char *)(src + 1);
+}
 
 
 void newFIFO(FIFO *fifo, int len, int size)
