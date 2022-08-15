@@ -2,14 +2,6 @@
 #include "FIFO.h"
 
 
-void memcpy(void *dist, void *src, unsigned int len)
-{
-  int i;
-  for (i=0; i<len; i++)
-    *(char *)(dist + i) = *(char *)(src + 1);
-}
-
-
 void newFIFO(FIFO *fifo, int len, int size)
 {
   if (fifo->init) return;
@@ -34,10 +26,14 @@ void delFIFO(FIFO *fifo)
 
 int enqFIFO(FIFO *fifo, void *src)
 {
+  int i;
+  
   if (!fifo->init)            return -1;
   if (fifo->cnt >= fifo->len) return -1;
 
-  memcpy(fifo->_ + fifo->ne*fifo->sz, src, fifo->sz);
+  for (i=0; i<(fifo->sz); i++)
+    *((char *)((int)fifo->_ + fifo->ne*fifo->sz) + i) = 
+    *((char *)src + i);
 
   fifo->ne = ++(fifo->ne) % fifo->len;
   fifo->cnt++;
@@ -49,21 +45,21 @@ void *deqFIFO(FIFO *fifo)
 {
   int i = fifo->nd;
 
-  if (!fifo->init)    return -1;
-  if (fifo->cnt == 0) return -1;
+  if (!fifo->init)    return (void *)(-1);
+  if (fifo->cnt == 0) return (void *)(-1);
 
   fifo->nd = ++(fifo->nd) % fifo->len;
   fifo->cnt--;
 
-  return (fifo->_ + i*fifo->sz);
+  return (void *)((int)fifo->_ + i*fifo->sz);
 }
 
 void *seeFIFO(FIFO *fifo)
 {
-  if (!fifo->init)    return -1;
-  if (fifo->cnt == 0) return -1;
+  if (!fifo->init)    return (void *)(-1);
+  if (fifo->cnt == 0) return (void *)(-1);
 
-  return (fifo->_ + fifo->nd*fifo->sz);
+  return (void *)((int)fifo->_ + fifo->nd*fifo->sz);
 }
 
 int FIFOleft(FIFO *fifo)
